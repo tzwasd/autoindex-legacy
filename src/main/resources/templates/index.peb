@@ -1,0 +1,31 @@
+{# @pebvariable name="requestUri" type="String" #}
+{# @pebvariable name="fileEntryList" type="java.util.List" #}
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/static/css/index.css">
+    <title>Index of {{ requestUri }}</title></head>
+<body>
+<h1>Index of {{ requestUri }}</h1>
+<hr>
+<table>
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Last modified</th>
+        <th scope="col">Size</th>
+    </tr>
+    </thead>
+    {% for entry in fileEntryList %}
+    {% set file = entry %}
+        <tbody>
+        <tr>
+            <td><a href="{{ file.link }}">{{ file.name }}</a></td>
+            <td>{{ file.lastModified | default(null) | date("yyyy-MM-dd HH:mm") }}</td>
+            <td>{{ file.size | default(null) | sizeformat() }}</td>
+        </tr>
+        </tbody>
+    {% endfor %}
+</table>
+<hr>
+</body>
+</html>
